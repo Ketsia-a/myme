@@ -1,0 +1,31 @@
+{%extends 'base.html'%} {% load bootstrap4 %} {% block content %}
+<div class="row justify-content-center">
+    {% for problem in problems %}
+
+    <div class="card col-md-3 m-3">
+        <img class="card-img-top" width="100%" src="{{ problem.image.url }}" alt="-------">
+        <div class="card-body">
+            <h5 class="card-title"><span>{{problem.description}}</span></h5>
+            <p class="card-text"><span>{{problem.names}}</span></p>
+            <p class="card-text"><small class="text-muted">happened at : {{problem.date|date}}</small></p>
+            <a class="btn btn-outline-primary btn-sm mr-3" href="{% url 'updateForm' problem.id %}">Edit the situation</a>
+            <a class="btn btn-outline-primary btn-sm mr-3" href="{% url 'deleteForm' problem.id %}">Delete the emergency</a>
+
+        </div>
+        {% empty %}
+        <p class="ml-3">No cemergency here yet</p>
+    </div>
+    {% endfor %}
+</div>
+<div class="col-md-3 mt-2">
+    <h4>Comments and tips </h4>
+
+    <hr style="width:96%"> {% for tip in image.tips.all %}
+    <div class="comment">
+        <div class="ml-2"><strong>{{ tip.user.user.username }}</strong> <span class="text-secondary">{{ tip.tip }}</span>
+        </div>
+    </div>
+    {% empty %}
+    <p class="ml-3">No comments here yet</p>
+</div>
+{% endfor %} {%endblock%}

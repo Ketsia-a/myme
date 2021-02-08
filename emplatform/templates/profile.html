@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content%}
+
+<div class="container" style="margin-top:8%">
+    <div class="content-section">
+        <div class="media">
+            <div class="container">
+                <div class="card">
+                    <div class="row justify-content-center">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <!-- <img class="rounded-circle account-img" src="{{ user.profile.url }}"
+                            width="100%"> -->
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <div class="media-body">
+                                <div class="account-heading"><span class="mr-3 text-secondary username"> <b>Username:</b> {{ user.username }}</span>
+                                    <a class="btn btn-outline-primary btn-sm mr-3" data-toggle="modal" data-target=".bd-example-modal-md "><strong>Edit Profile</strong></a>
+
+                                </div>
+                                <p class="text-secondary"> <b>Names:</b> {{ user.profile.first_name }} {{ user.profile.last_name }}</p>
+                                <p class="text-secondary"> <b>Bio:</b> {{ user.profile.bio }}</p>
+                                <button type="button" class="btn btn-outline-primary mr-4" data-toggle="modal" data-target="#exampleModal_">
+                                Add tip
+                              </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md ">
+                <div class="modal-content">
+                    <form action="" method="post" novalidate enctype="multipart/form-data" class="mr-4 mt-4 ml-4 mb-4">
+                        {% csrf_token%} {{ prof_form|crispy}}
+                        <button type="submit" class="btn btn-outline-primary btn-sm"> Update Profile</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Close
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row justify-content-center">
+        {% for problem in problems %} {% if problem.department = user.profile.status }
+
+        <!-- <div class="card col-md-3 m-3">
+            <img class="card-img-top" width="100%" src="{{ card.image.url }}" alt="-------"> -->
+        <div class="card-body">
+            <h5 class="card-title"><span>{{problem.desription}}</span></h5>
+            <p class="card-text"><span>{{problem.names}}</span></p>
+            <p class="card-text"><small class="text-muted">created on : {{problem.date|date}}</small></p>
+            <a class="btn btn-outline-primary btn-sm mr-3" href="{% url 'deleteForm' problem.id %}">Delete this emergency</a>
+            <a class="btn btn-outline-primary btn-sm mr-3" href="{%url 'tip'%}">add a tip</a>
+        </div>
+
+        {%endif} {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

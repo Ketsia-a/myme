@@ -1,0 +1,9 @@
+{%extends 'base.html'%} {% load bootstrap4 %} {% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">DO you have a n emergency</h5>
+        <p class="card-text">Click on the button and tell us about your emrgency.</p>
+        <a href="{% url 'problem' %}" class="btn btn-primary">Get help</a>
+    </div>
+</div>
+{%endblock%}
